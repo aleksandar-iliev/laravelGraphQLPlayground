@@ -4,9 +4,14 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
+type Mutation {
+    login(email: String!, password: String!): String @field(resolver: "AuthMutator@login")
+}
+
 type Query {
-    users: [User!]! @paginate(defaultCount: 10)
-    user(id: ID @eq): User @find
+    me: User @field(resolver: "UserQuery@me")
+    #users: [User!]! @paginate(defaultCount: 10)
+    #user(id: ID @eq): User @find
 }
 
 type User {
